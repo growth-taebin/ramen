@@ -1,9 +1,7 @@
 package com.example.ramenbm.domain.user.entity
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import com.example.ramenbm.domain.auth.presentation.data.enumType.Authority
+import javax.persistence.*
 
 @Entity
 class User(
@@ -13,5 +11,9 @@ class User(
         val email: String,
         val password: String,
         val name: String,
-        val discord: String
+        val discord: String,
+        @Enumerated(EnumType.STRING)
+        @ElementCollection
+        @CollectionTable(name = "user_authority")
+        val authority: MutableList<Authority>
 )
