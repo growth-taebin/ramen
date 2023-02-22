@@ -1,4 +1,4 @@
-package com.example.ramenbm.domain.auth.presentation.data.enumType
+package com.example.ramenbm.domain.user.presentation.data.enumType
 
 import org.springframework.security.core.GrantedAuthority
 
