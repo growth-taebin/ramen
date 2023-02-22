@@ -1,4 +1,4 @@
-package com.example.ramenbm.domain.auth.presentation.data.dto.request
+package com.example.ramenbm.domain.user.presentation.data.dto.request
 
 data class SignUpRequest(
         val email: String,

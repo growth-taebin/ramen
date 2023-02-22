@@ -1,6 +1,6 @@
 package com.example.ramenbm.domain.user.entity
 
-import com.example.ramenbm.domain.auth.presentation.data.enumType.Authority
+import com.example.ramenbm.domain.user.presentation.data.enumType.Authority
 import javax.persistence.*
 
 @Entity
