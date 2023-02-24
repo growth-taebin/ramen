@@ -2,6 +2,7 @@ package com.example.ramenbm.global.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
@@ -24,6 +25,7 @@ class SecurityConfig {
                     .and()
 
                     .authorizeRequests()
+                    .antMatchers(HttpMethod.POST, "/auth/signup").permitAll()
                     .anyRequest().denyAll()
                     .and()
                     .build()
