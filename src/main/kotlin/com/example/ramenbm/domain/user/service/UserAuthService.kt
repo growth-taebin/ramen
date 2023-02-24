@@ -4,17 +4,15 @@ import com.example.ramenbm.domain.user.entity.User
 import com.example.ramenbm.domain.user.exception.DuplicateEmailException
 import com.example.ramenbm.domain.user.presentation.data.dto.request.SignUpRequest
 import com.example.ramenbm.domain.user.repository.UserRepository
+import com.example.ramenbm.global.annotation.ServiceWithTransaction
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
-@Service
+@ServiceWithTransaction
 class UserAuthService(
         private val userRepository: UserRepository,
         private val passwordEncoder: PasswordEncoder
 ) {
 
-    @Transactional(rollbackFor = [Exception::class])
     fun signup(request: SignUpRequest) {
         if(userRepository.existsByEmail(request.email)) {
             throw DuplicateEmailException()
