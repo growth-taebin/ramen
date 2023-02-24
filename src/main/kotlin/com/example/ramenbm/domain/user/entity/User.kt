@@ -1,6 +1,5 @@
 package com.example.ramenbm.domain.user.entity
 
-import com.example.ramenbm.domain.user.presentation.data.enumType.Authority
 import javax.persistence.*
 
 @Entity
@@ -11,9 +10,5 @@ class User(
         val email: String,
         val password: String,
         val name: String,
-        val discord: String,
-        @Enumerated(EnumType.STRING)
-        @ElementCollection
-        @CollectionTable(name = "user_authority")
-        val authority: MutableList<Authority>
+        val discord: String
 )
