@@ -11,7 +11,6 @@ data class SignUpRequest(
 
 fun SignUpRequest.toEntity(encodePassword: String) =
         User(
-                id = -1,
                 email = email,
                 password = encodePassword,
                 name = name,
