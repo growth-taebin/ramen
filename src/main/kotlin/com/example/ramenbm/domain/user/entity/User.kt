@@ -5,8 +5,8 @@ import javax.persistence.*
 
 @Entity
 class User(
-        var email: String,
-        var password: String,
-        var name: String,
-        var discord: String
+        val email: String,
+        val password: String,
+        val name: String,
+        val discord: String
 ): BaseIdxEntity()
