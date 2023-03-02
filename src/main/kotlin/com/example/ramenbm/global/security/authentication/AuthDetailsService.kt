@@ -1,4 +1,4 @@
-package com.example.ramenbm.global.authentication
+package com.example.ramenbm.global.security.authentication
 
 import com.example.ramenbm.domain.user.exception.UserNotFoundException
 import com.example.ramenbm.domain.user.repository.UserRepository
