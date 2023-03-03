@@ -1,7 +1,7 @@
 package com.example.ramenbm.global.security
 
 import com.example.ramenbm.global.security.filter.config.FilterConfig
-import com.example.ramenbm.global.security.jwt.TokenProvider
+import com.example.ramenbm.global.security.jwt.TokenParser
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -13,7 +13,7 @@ import org.springframework.security.web.SecurityFilterChain
 
 @Configuration
 class SecurityConfig(
-        private val tokenProvider: TokenProvider
+        private val tokenParser: TokenParser
 ) {
 
     @Bean
@@ -33,7 +33,7 @@ class SecurityConfig(
                     .antMatchers(HttpMethod.POST, "/auth/signin").permitAll()
                     .anyRequest().denyAll()
                     .and()
-                    .apply(FilterConfig(tokenProvider))
+                    .apply(FilterConfig(tokenParser))
                     .and()
                     .build()
 
