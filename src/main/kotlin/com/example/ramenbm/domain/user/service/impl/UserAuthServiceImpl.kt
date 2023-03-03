@@ -1,6 +1,5 @@
 package com.example.ramenbm.domain.user.service.impl
 
-import com.example.ramenbm.domain.user.entity.User
 import com.example.ramenbm.domain.user.exception.DuplicateEmailException
 import com.example.ramenbm.domain.user.exception.PasswordNotCorrectException
 import com.example.ramenbm.domain.user.exception.UserNotFoundException
@@ -29,7 +28,7 @@ class UserAuthServiceImpl(
     }
 
     override fun signin(request: SignInRequest): SignInResponse {
-        val user: User = userRepository.findByEmail(request.email) ?: throw UserNotFoundException()
+        val user = userRepository.findByEmail(request.email) ?: throw UserNotFoundException()
         if (!passwordEncoder.matches(request.password, user.password)) {
             throw PasswordNotCorrectException()
         }
