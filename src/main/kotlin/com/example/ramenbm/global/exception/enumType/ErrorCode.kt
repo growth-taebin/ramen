@@ -10,5 +10,6 @@ enum class ErrorCode(
     PASSWORD_NOT_CORRECT("비밀번호가 일치하지 않습니다.", 400),
 
     ACCESS_TOKEN_EXPIRED("만료된 accessToken 입니다.", 401),
-    INVALID_TOKEN("유효하지 않은 토큰입니다.", 401)
+    INVALID_TOKEN("유효하지 않은 토큰입니다.", 401),
+    REFRESH_TOKEN_EXPIRED("만료된 refreshToken 입니다.", 401)
 }
