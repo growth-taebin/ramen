@@ -8,4 +8,5 @@ interface UserAuthService {
 
     fun signup(request: SignUpRequest): Long
     fun signin(request: SignInRequest): SignInResponse
+    fun reissueToken(refreshToken: String): SignInResponse
 }
