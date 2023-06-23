@@ -6,8 +6,10 @@ import com.example.ramenbm.domain.user.presentation.data.dto.response.SignInResp
 import com.example.ramenbm.domain.user.service.UserAuthService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -26,4 +28,9 @@ class UserAuthController(
     fun signIn(@RequestBody request: SignInRequest): ResponseEntity<SignInResponse> =
             userAuthService.signin(request)
                     .let { ResponseEntity.ok(it) }
+
+    @PatchMapping("/reissue")
+    fun reissue(@RequestHeader refreshToken: String): ResponseEntity<SignInResponse> =
+        userAuthService.reissueToken(refreshToken)
+            .let { ResponseEntity.ok(it) }
 }
