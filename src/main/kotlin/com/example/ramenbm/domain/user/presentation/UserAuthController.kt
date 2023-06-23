@@ -2,7 +2,7 @@ package com.example.ramenbm.domain.user.presentation
 
 import com.example.ramenbm.domain.user.presentation.data.dto.request.SignInRequest
 import com.example.ramenbm.domain.user.presentation.data.dto.request.SignUpRequest
-import com.example.ramenbm.domain.user.presentation.data.dto.response.SignInResponse
+import com.example.ramenbm.domain.user.presentation.data.dto.response.TokenResponse
 import com.example.ramenbm.domain.user.service.UserAuthService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -25,12 +25,12 @@ class UserAuthController(
                     .let { ResponseEntity.status(HttpStatus.CREATED).build() }
 
     @PostMapping("/signin")
-    fun signIn(@RequestBody request: SignInRequest): ResponseEntity<SignInResponse> =
+    fun signIn(@RequestBody request: SignInRequest): ResponseEntity<TokenResponse> =
             userAuthService.signin(request)
                     .let { ResponseEntity.ok(it) }
 
     @PatchMapping("/reissue")
-    fun reissue(@RequestHeader refreshToken: String): ResponseEntity<SignInResponse> =
+    fun reissue(@RequestHeader refreshToken: String): ResponseEntity<TokenResponse> =
         userAuthService.reissueToken(refreshToken)
             .let { ResponseEntity.ok(it) }
 }

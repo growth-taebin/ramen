@@ -4,7 +4,7 @@ import com.example.ramenbm.domain.user.exception.*
 import com.example.ramenbm.domain.user.presentation.data.dto.request.SignInRequest
 import com.example.ramenbm.domain.user.presentation.data.dto.request.SignUpRequest
 import com.example.ramenbm.domain.user.presentation.data.dto.request.toEntity
-import com.example.ramenbm.domain.user.presentation.data.dto.response.SignInResponse
+import com.example.ramenbm.domain.user.presentation.data.dto.response.TokenResponse
 import com.example.ramenbm.domain.user.repository.RefreshTokenRepository
 import com.example.ramenbm.domain.user.repository.UserRepository
 import com.example.ramenbm.domain.user.service.UserAuthService
@@ -33,7 +33,7 @@ class UserAuthServiceImpl(
     }
 
     @Transactional(rollbackFor = [Exception::class])
-    override fun signin(request: SignInRequest): SignInResponse {
+    override fun signin(request: SignInRequest): TokenResponse {
         val user = userRepository.findByEmail(request.email) ?: throw UserNotFoundException()
         if (!passwordEncoder.matches(request.password, user.password)) {
             throw PasswordNotCorrectException()
@@ -42,7 +42,7 @@ class UserAuthServiceImpl(
     }
 
     @Transactional(rollbackFor = [Exception::class])
-    override fun reissueToken(refreshToken: String): SignInResponse {
+    override fun reissueToken(refreshToken: String): TokenResponse {
         val parsedRefreshToken = tokenParser.parseRefreshToken(refreshToken) ?: throw InvalidTokenException()
         val refreshTokenEntity = refreshTokenRepository.findByIdOrNull(parsedRefreshToken) ?: throw ExpiredRefreshTokenException()
         val user = userRepository.findByEmail(refreshTokenEntity.email) ?: throw UserNotFoundException()
