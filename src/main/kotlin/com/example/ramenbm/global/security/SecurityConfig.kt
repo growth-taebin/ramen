@@ -31,6 +31,7 @@ class SecurityConfig(
                     .authorizeRequests()
                     .antMatchers(HttpMethod.POST, "/auth/signup").permitAll()
                     .antMatchers(HttpMethod.POST, "/auth/signin").permitAll()
+                    .antMatchers(HttpMethod.PATCH, "/auth/reissue").permitAll()
                     .anyRequest().denyAll()
                     .and()
                     .apply(FilterConfig(tokenParser))
