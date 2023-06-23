@@ -1,7 +1,7 @@
 package com.example.ramenbm.global.security.jwt
 
 import com.example.ramenbm.domain.user.entity.RefreshToken
-import com.example.ramenbm.domain.user.presentation.data.dto.response.SignInResponse
+import com.example.ramenbm.domain.user.presentation.data.dto.response.TokenResponse
 import com.example.ramenbm.domain.user.repository.RefreshTokenRepository
 import com.example.ramenbm.global.security.jwt.properties.JwtProperties
 import io.jsonwebtoken.Jwts
@@ -27,11 +27,11 @@ class TokenProvider(
     }
 
     @Transactional(rollbackFor = [Exception::class])
-    fun generate(email: String): SignInResponse {
+    fun generate(email: String): TokenResponse {
         val accessToken = generateAccessToken(email)
         val refreshToken = generateRefreshToken(email)
         refreshTokenRepository.save(RefreshToken(email, refreshToken, REFRESH_EXP))
-        return SignInResponse(accessToken, refreshToken, getAccessTokenExpiredAt())
+        return TokenResponse(accessToken, refreshToken, getAccessTokenExpiredAt())
     }
 
     private fun getAccessTokenExpiredAt(): LocalDateTime =

@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit
 @RedisHash("refresh-token")
 data class RefreshToken(
         @Id
-        val email: String,
         val refreshToken: String,
+        val email: String,
         @TimeToLive(unit = TimeUnit.SECONDS)
         val expiredTime: Long
 )
