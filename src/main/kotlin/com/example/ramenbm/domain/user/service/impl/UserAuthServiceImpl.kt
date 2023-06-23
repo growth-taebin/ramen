@@ -22,7 +22,7 @@ class UserAuthServiceImpl(
     private val passwordEncoder: PasswordEncoder,
     private val tokenProvider: TokenProvider,
     private val tokenParser: TokenParser
-) : UserAuthService {
+): UserAuthService {
 
     @Transactional(rollbackFor = [Exception::class])
     override fun signup(request: SignUpRequest): Long {
