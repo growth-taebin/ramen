@@ -4,7 +4,7 @@ import com.example.ramenbm.global.entity.BaseIdxEntity
 import javax.persistence.Entity
 
 @Entity
-class Ramen(
+class RamenTrade(
     val title: String,
     val count: Int,
     val price: String
