@@ -32,6 +32,7 @@ class SecurityConfig(
                     .antMatchers(HttpMethod.POST, "/auth/signup").permitAll()
                     .antMatchers(HttpMethod.POST, "/auth/signin").permitAll()
                     .antMatchers(HttpMethod.PATCH, "/auth/reissue").permitAll()
+                    .antMatchers(HttpMethod.POST, "/api/ramen").permitAll()
                     .anyRequest().denyAll()
                     .and()
                     .apply(FilterConfig(tokenParser))
