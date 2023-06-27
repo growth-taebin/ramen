@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component
 class RamenTradeConverterImpl : RamenTradeConverter {
 
     override fun toDto(request: WriteRamenTradeRequest): RamenTradeDto =
-        RamenTradeDto(request.title, request.count, request.price)
+        RamenTradeDto(request.title, request.count, request.price, request.content)
 
     override fun toEntity(dto: RamenTradeDto): RamenTrade =
-        RamenTrade(dto.title, dto.count, dto.price)
+        RamenTrade(dto.title, dto.count, dto.price, dto.content)
 }
