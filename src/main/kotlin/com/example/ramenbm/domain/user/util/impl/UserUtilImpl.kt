@@ -18,7 +18,6 @@ class UserUtilImpl(
         val email = SecurityContextHolder.getContext().authentication.name
         return userRepository.findByEmail(email)
             ?: throw UserNotFoundException()
-
     }
 
 }
