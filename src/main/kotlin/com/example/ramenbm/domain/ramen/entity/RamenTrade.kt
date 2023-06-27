@@ -7,5 +7,5 @@ import javax.persistence.Entity
 class RamenTrade(
     val title: String,
     val count: Int,
-    val price: String
+    val price: Int
 ): BaseIdxEntity()

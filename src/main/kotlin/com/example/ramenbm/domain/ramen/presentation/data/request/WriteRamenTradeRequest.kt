@@ -10,6 +10,6 @@ data class WriteRamenTradeRequest(
     @field:NotNull
     val count: Int,
     @field:NotBlank
-    val price: String
+    val price: Int
 )
 
