@@ -18,8 +18,8 @@ class RamenTradeServiceImpl(
 
     @Transactional(rollbackFor = [Exception::class])
     override fun write(dto: RamenTradeDto): Long {
-        val user: User = userUtil.currentUser()
-        ramenTradeConverter.toEntity(dto)
+        val user = userUtil.currentUser()
+        ramenTradeConverter.toEntity(dto, user)
             .let { return ramenRepository.save(it).idx }
     }
 
