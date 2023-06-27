@@ -18,7 +18,7 @@ class RamenTradeController(
 ) {
 
     @PostMapping
-    fun writeRamen(@RequestBody request: WriteRamenTradeRequest): ResponseEntity<Void> =
+    fun writeRamenTrade(@RequestBody request: WriteRamenTradeRequest): ResponseEntity<Void> =
         ramenTradeConverter.toDto(request)
             .let { ramenTradeService.write(it) }
             .let { ResponseEntity.status(HttpStatus.CREATED).build() }
