@@ -35,15 +35,4 @@ class TokenParser(
             authDetailsService.loadUserByUsername(getTokenBody(accessToken, jwtProperties.accessSecret).subject)
                     .let { UsernamePasswordAuthenticationToken(it, "", it.authorities) }
 
-    fun exactEmailFromRefreshToken(token: String): String =
-            getTokenBody(token, jwtProperties.refreshSecret).subject
-
-    fun isRefreshTokenExpired(token: String): Boolean {
-        runCatching {
-            getTokenBody(token, jwtProperties.refreshSecret).expiration
-        }.onFailure {
-            return true
-        }
-        return false
-    }
 }
