@@ -11,5 +11,7 @@ enum class ErrorCode(
 
     ACCESS_TOKEN_EXPIRED("만료된 accessToken 입니다.", 401),
     INVALID_TOKEN("유효하지 않은 토큰입니다.", 401),
-    REFRESH_TOKEN_EXPIRED("만료된 refreshToken 입니다.", 401)
+    REFRESH_TOKEN_EXPIRED("만료된 refreshToken 입니다.", 401),
+
+    RAMEN_TRADE_NOT_FOUND("글을 찾을 수 없습니다.", 404)
 }
