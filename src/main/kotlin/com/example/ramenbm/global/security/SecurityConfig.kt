@@ -34,6 +34,7 @@ class SecurityConfig(
                     .antMatchers(HttpMethod.POST, "/auth/signin").permitAll()
                     .antMatchers(HttpMethod.PATCH, "/auth/reissue").permitAll()
                     .antMatchers(HttpMethod.POST, "/api/ramen").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
+                    .antMatchers(HttpMethod.PATCH, "/api/ramen/{idx}").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
                     .anyRequest().denyAll()
                     .and()
                     .apply(FilterConfig(tokenParser))
