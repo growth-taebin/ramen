@@ -31,4 +31,5 @@ class RamenTradeController(
         ramenTradeConverter.toDto(idx, request)
             .let { ramenTradeService.update(it) }
             .let { ResponseEntity.ok().build() }
+
 }

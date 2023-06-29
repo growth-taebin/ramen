@@ -20,4 +20,5 @@ class RamenTradeConverterImpl : RamenTradeConverter {
 
     override fun toEntity(dto: WriteRamenTradeDto, user: User): RamenTrade =
         RamenTrade(dto.title, dto.count, dto.price, dto.content, user)
+
 }

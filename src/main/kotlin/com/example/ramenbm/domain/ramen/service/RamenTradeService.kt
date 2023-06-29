@@ -8,4 +8,5 @@ interface RamenTradeService {
     fun write(dto: WriteRamenTradeDto): Long
 
     fun update(dto: UpdateRamenTradeDto)
+
 }

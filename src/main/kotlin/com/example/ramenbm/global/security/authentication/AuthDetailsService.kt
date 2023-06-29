@@ -8,10 +8,10 @@ import org.springframework.security.core.userdetails.UserDetailsService
 
 @ServiceWithTransaction
 class AuthDetailsService(
-        private val userRepository: UserRepository
-): UserDetailsService {
+    private val userRepository: UserRepository
+) : UserDetailsService {
 
     override fun loadUserByUsername(username: String): UserDetails =
-            AuthDetails(userRepository.findByEmail(username) ?: throw UserNotFoundException())
+        AuthDetails(userRepository.findByEmail(username) ?: throw UserNotFoundException())
 
 }

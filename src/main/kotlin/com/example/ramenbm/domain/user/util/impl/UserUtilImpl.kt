@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 @Component
 class UserUtilImpl(
     private val userRepository: UserRepository
-): UserUtil {
+) : UserUtil {
 
     @Transactional(readOnly = true, rollbackFor = [Exception::class])
     override fun currentUser(): User {

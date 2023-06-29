@@ -14,8 +14,8 @@ import java.util.*
 
 @Component
 class TokenProvider(
-        private val jwtProperties: JwtProperties,
-        private val refreshTokenRepository: RefreshTokenRepository,
+    private val jwtProperties: JwtProperties,
+    private val refreshTokenRepository: RefreshTokenRepository,
 ) {
 
     companion object {
@@ -35,21 +35,21 @@ class TokenProvider(
     }
 
     private fun getAccessTokenExpiredAt(): LocalDateTime =
-            LocalDateTime.now().plusSeconds(ACCESS_EXP + 1000)
+        LocalDateTime.now().plusSeconds(ACCESS_EXP + 1000)
 
     private fun generateAccessToken(email: String): String =
-            generateToken(email, ACCESS_TYPE, jwtProperties.accessSecret, ACCESS_EXP)
+        generateToken(email, ACCESS_TYPE, jwtProperties.accessSecret, ACCESS_EXP)
 
     private fun generateRefreshToken(email: String): String =
-            generateToken(email, REFRESH_TYPE, jwtProperties.refreshSecret, REFRESH_EXP)
+        generateToken(email, REFRESH_TYPE, jwtProperties.refreshSecret, REFRESH_EXP)
 
     private fun generateToken(sub: String, type: String, secret: Key, exp: Long): String =
-            Jwts.builder()
-                    .signWith(secret, SignatureAlgorithm.HS256)
-                    .setSubject(sub)
-                    .claim("type", type)
-                    .setIssuedAt(Date())
-                    .setExpiration(Date(System.currentTimeMillis() * exp * 1000))
-                    .compact()
+        Jwts.builder()
+            .signWith(secret, SignatureAlgorithm.HS256)
+            .setSubject(sub)
+            .claim("type", type)
+            .setIssuedAt(Date())
+            .setExpiration(Date(System.currentTimeMillis() * exp * 1000))
+            .compact()
 
 }

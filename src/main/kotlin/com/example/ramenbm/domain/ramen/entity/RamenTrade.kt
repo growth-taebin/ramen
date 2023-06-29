@@ -15,7 +15,7 @@ class RamenTrade(
     var content: String,
     @ManyToOne(fetch = FetchType.LAZY)
     val user: User
-): BaseIdxEntity() {
+) : BaseIdxEntity() {
     fun updateRamenTrade(dto: UpdateRamenTradeDto) {
         this.title = dto.title
         this.count = dto.count

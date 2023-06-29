@@ -1,8 +1,8 @@
 package com.example.ramenbm.global.exception.enumType
 
 enum class ErrorCode(
-        val message: String,
-        val status: Int
+    val message: String,
+    val status: Int
 ) {
 
     DUPLICATE_EMAIL("중복된 이메일 입니다", 409),
@@ -14,4 +14,5 @@ enum class ErrorCode(
     REFRESH_TOKEN_EXPIRED("만료된 refreshToken 입니다.", 401),
 
     RAMEN_TRADE_NOT_FOUND("글을 찾을 수 없습니다.", 404)
+
 }
