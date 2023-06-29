@@ -28,7 +28,6 @@ class RamenTradeServiceImpl(
     override fun update(dto: UpdateRamenTradeDto) {
         val ramenTrade = ramenRepository.findRamenTradeByIdx(dto.idx) ?: throw RamenTradeNotFoundException()
         ramenTrade.updateRamenTrade(dto)
-
     }
 
 }
