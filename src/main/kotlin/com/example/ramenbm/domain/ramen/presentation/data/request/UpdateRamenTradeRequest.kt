@@ -8,7 +8,7 @@ data class UpdateRamenTradeRequest(
     val title: String,
     @field:NotNull
     val count: Int,
-    @field:NotBlank
+    @field:NotNull
     val price: Int,
     @field:NotBlank
     val content: String
