@@ -31,11 +31,14 @@ class TokenProvider(
         val accessToken = generateAccessToken(email)
         val refreshToken = generateRefreshToken(email)
         refreshTokenRepository.save(RefreshToken(email, refreshToken, REFRESH_EXP))
-        return TokenResponse(accessToken, refreshToken, getAccessTokenExpiredAt())
+        return TokenResponse(accessToken, refreshToken, getAccessTokenExpiredAt(), getRefreshTokenExpiredAt())
     }
 
     private fun getAccessTokenExpiredAt(): LocalDateTime =
         LocalDateTime.now().plusSeconds(ACCESS_EXP + 1000)
+
+    private fun getRefreshTokenExpiredAt(): LocalDateTime =
+        LocalDateTime.now().plusSeconds(REFRESH_EXP + 1000)
 
     private fun generateAccessToken(email: String): String =
         generateToken(email, ACCESS_TYPE, jwtProperties.accessSecret, ACCESS_EXP)

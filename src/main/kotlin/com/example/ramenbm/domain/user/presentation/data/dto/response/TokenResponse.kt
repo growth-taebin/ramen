@@ -7,5 +7,6 @@ data class TokenResponse(
     val accessToken: String,
     val refreshToken: String,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH-mm-ss")
-    val accessTokenExpiredAt: LocalDateTime
+    val accessTokenExpiredAt: LocalDateTime,
+    val refreshTokenExpiredAt: LocalDateTime
 )
