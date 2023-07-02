@@ -12,6 +12,8 @@ class AuthDetailsService(
 ) : UserDetailsService {
 
     override fun loadUserByUsername(username: String): UserDetails =
-        AuthDetails(userRepository.findByEmail(username) ?: throw UserNotFoundException())
+        userRepository.findByEmail(username)
+            .let { it ?: throw UserNotFoundException() }
+            .let { AuthDetails(it.email) }
 
 }
