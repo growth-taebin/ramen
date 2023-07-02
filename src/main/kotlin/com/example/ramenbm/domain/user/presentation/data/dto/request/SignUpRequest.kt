@@ -8,7 +8,6 @@ data class SignUpRequest(
     val password: String,
     val name: String,
     val discord: String,
-    val authority: MutableList<Authority>
 )
 
 fun SignUpRequest.toEntity(encodePassword: String) =
