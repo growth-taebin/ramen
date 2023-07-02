@@ -27,7 +27,7 @@ class RamenTradeServiceImpl(
     @Transactional(rollbackFor = [Exception::class])
     override fun update(dto: UpdateRamenTradeDto) {
         val ramenTrade = ramenRepository.findRamenTradeByIdx(dto.idx) ?: throw RamenTradeNotFoundException()
-        ramenTrade.updateRamenTrade(dto)
+        ramenTrade.updateRamenTrade(dto.title, dto.count, dto.price, dto.content)
     }
 
 }
