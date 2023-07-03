@@ -13,17 +13,17 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Component
-class ExceptionHandlerFilter: OncePerRequestFilter() {
+class ExceptionHandlerFilter : OncePerRequestFilter() {
 
     override fun doFilterInternal(
-            request: HttpServletRequest,
-            response: HttpServletResponse,
-            filterChain: FilterChain
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        filterChain: FilterChain
     ) {
         runCatching {
             filterChain.doFilter(request, response)
         }.onFailure { exception ->
-            when(exception) {
+            when (exception) {
                 is ExpiredJwtException -> setErrorResponse(ErrorCode.ACCESS_TOKEN_EXPIRED, response)
                 is JwtException -> setErrorResponse(ErrorCode.INVALID_TOKEN, response)
                 is RamenException -> setErrorResponse(exception.errorCode, response)
@@ -35,9 +35,9 @@ class ExceptionHandlerFilter: OncePerRequestFilter() {
         response.status = errorCode.status
         response.contentType = "application/json"
         response.characterEncoding = "utf-8"
-        val errorResponseEntityToJson = ObjectMapper().writeValueAsString(ErrorResponse(errorCode.message, errorCode.status))
+        val errorResponseEntityToJson =
+            ObjectMapper().writeValueAsString(ErrorResponse(errorCode.message, errorCode.status))
         response.writer.write(errorResponseEntityToJson)
     }
-
 
 }

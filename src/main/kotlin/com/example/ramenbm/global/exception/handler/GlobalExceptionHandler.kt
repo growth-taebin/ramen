@@ -12,8 +12,9 @@ class GlobalExceptionHandler {
 
     @ExceptionHandler(RamenException::class)
     fun globalExceptionHandler(e: RamenException): ResponseEntity<ErrorResponse> =
-            ResponseEntity(
-                    ErrorResponse(e.errorCode.message, e.errorCode.status),
-                    HttpStatus.valueOf(e.errorCode.status)
-            )
+        ResponseEntity(
+            ErrorResponse(e.errorCode.message, e.errorCode.status),
+            HttpStatus.valueOf(e.errorCode.status)
+        )
+
 }

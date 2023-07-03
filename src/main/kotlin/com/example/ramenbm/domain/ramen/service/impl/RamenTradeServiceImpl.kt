@@ -1,10 +1,11 @@
 package com.example.ramenbm.domain.ramen.service.impl
 
-import com.example.ramenbm.domain.ramen.presentation.data.dto.RamenTradeDto
+import com.example.ramenbm.domain.ramen.exception.RamenTradeNotFoundException
+import com.example.ramenbm.domain.ramen.presentation.data.dto.UpdateRamenTradeDto
+import com.example.ramenbm.domain.ramen.presentation.data.dto.WriteRamenTradeDto
 import com.example.ramenbm.domain.ramen.repository.RamenTradeRepository
 import com.example.ramenbm.domain.ramen.service.RamenTradeService
 import com.example.ramenbm.domain.ramen.util.RamenTradeConverter
-import com.example.ramenbm.domain.user.entity.User
 import com.example.ramenbm.domain.user.util.UserUtil
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -17,10 +18,16 @@ class RamenTradeServiceImpl(
 ): RamenTradeService {
 
     @Transactional(rollbackFor = [Exception::class])
-    override fun write(dto: RamenTradeDto): Long {
+    override fun write(dto: WriteRamenTradeDto): Long {
         val user = userUtil.currentUser()
         ramenTradeConverter.toEntity(dto, user)
             .let { return ramenRepository.save(it).idx }
+    }
+
+    @Transactional(rollbackFor = [Exception::class])
+    override fun update(dto: UpdateRamenTradeDto) {
+        val ramenTrade = ramenRepository.findRamenTradeByIdx(dto.idx) ?: throw RamenTradeNotFoundException()
+        ramenTrade.updateRamenTrade(dto.title, dto.count, dto.price, dto.content)
     }
 
 }

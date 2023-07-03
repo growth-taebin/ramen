@@ -44,7 +44,8 @@ class UserAuthServiceImpl(
     @Transactional(rollbackFor = [Exception::class])
     override fun reissueToken(refreshToken: String): TokenResponse {
         val parsedRefreshToken = tokenParser.parseRefreshToken(refreshToken) ?: throw InvalidTokenException()
-        val refreshTokenEntity = refreshTokenRepository.findByIdOrNull(parsedRefreshToken) ?: throw ExpiredRefreshTokenException()
+        val refreshTokenEntity =
+            refreshTokenRepository.findByIdOrNull(parsedRefreshToken) ?: throw ExpiredRefreshTokenException()
         val user = userRepository.findByEmail(refreshTokenEntity.email) ?: throw UserNotFoundException()
 
         if (refreshTokenRepository.existsById(parsedRefreshToken)) {

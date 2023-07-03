@@ -8,10 +8,19 @@ import javax.persistence.ManyToOne
 
 @Entity
 class RamenTrade(
-    val title: String,
-    val count: Int,
-    val price: Int,
-    val content: String,
+    var title: String,
+    var count: Int,
+    var price: Int,
+    var content: String,
     @ManyToOne(fetch = FetchType.LAZY)
     val user: User
-): BaseIdxEntity()
+) : BaseIdxEntity() {
+
+    fun updateRamenTrade(title: String, count: Int, price: Int, content: String) {
+        this.title = title
+        this.count = count
+        this.price = price
+        this.content = content
+    }
+
+}

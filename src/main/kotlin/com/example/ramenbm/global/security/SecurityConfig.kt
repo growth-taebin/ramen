@@ -2,6 +2,8 @@ package com.example.ramenbm.global.security
 
 import com.example.ramenbm.domain.user.type.Authority
 import com.example.ramenbm.global.security.filter.config.FilterConfig
+import com.example.ramenbm.global.security.handler.CustomAccessDeniedHandler
+import com.example.ramenbm.global.security.handler.CustomAuthenticationEntryPoint
 import com.example.ramenbm.global.security.jwt.TokenParser
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -14,32 +16,43 @@ import org.springframework.security.web.SecurityFilterChain
 
 @Configuration
 class SecurityConfig(
-        private val tokenParser: TokenParser,
+    private val tokenParser: TokenParser,
 ) {
 
     @Bean
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain =
-            http
-                    .cors()
-                    .and()
-                    .csrf().disable()
-                    .httpBasic().disable()
+        http
+            .cors()
+            .and()
+            .csrf().disable()
+            .httpBasic().disable()
 
-                    .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    .and()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
 
-                    .authorizeRequests()
-                    .antMatchers(HttpMethod.POST, "/auth/signup").permitAll()
-                    .antMatchers(HttpMethod.POST, "/auth/signin").permitAll()
-                    .antMatchers(HttpMethod.PATCH, "/auth/reissue").permitAll()
-                    .antMatchers(HttpMethod.POST, "/api/ramen").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
-                    .anyRequest().denyAll()
-                    .and()
-                    .apply(FilterConfig(tokenParser))
-                    .and()
-                    .build()
+            .authorizeRequests()
+            .antMatchers(HttpMethod.POST, "/auth/signup").permitAll()
+            .antMatchers(HttpMethod.POST, "/auth/signin").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/auth/reissue").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/ramen").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
+            .antMatchers(HttpMethod.PATCH, "/api/ramen/{idx}").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
+
+            .anyRequest().permitAll()
+            .and()
+
+            .exceptionHandling()
+            .accessDeniedHandler(CustomAccessDeniedHandler())
+            .and()
+            .httpBasic()
+            .authenticationEntryPoint(CustomAuthenticationEntryPoint())
+            .and()
+
+            .apply(FilterConfig(tokenParser))
+            .and()
+            .build()
 
     @Bean
     protected fun passwordEncoder(): PasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
+
 }

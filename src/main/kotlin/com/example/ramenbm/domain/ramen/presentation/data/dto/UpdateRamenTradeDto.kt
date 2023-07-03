@@ -1,10 +1,9 @@
 package com.example.ramenbm.domain.ramen.presentation.data.dto
 
-import com.example.ramenbm.domain.user.entity.User
-
-data class RamenTradeDto(
+data class UpdateRamenTradeDto(
+    val idx: Long,
     val title: String,
     val count: Int,
     val price: Int,
-    val content: String,
+    val content: String
 )
