@@ -1,6 +1,7 @@
 package com.example.ramenbm.domain.ramen.service.impl
 
 import com.example.ramenbm.domain.ramen.exception.RamenTradeNotFoundException
+import com.example.ramenbm.domain.ramen.presentation.data.dto.DeleteRamenTradeDto
 import com.example.ramenbm.domain.ramen.presentation.data.dto.UpdateRamenTradeDto
 import com.example.ramenbm.domain.ramen.presentation.data.dto.WriteRamenTradeDto
 import com.example.ramenbm.domain.ramen.repository.RamenTradeRepository
@@ -29,5 +30,8 @@ class RamenTradeServiceImpl(
         val ramenTrade = ramenRepository.findRamenTradeByIdx(dto.idx) ?: throw RamenTradeNotFoundException()
         ramenTrade.updateRamenTrade(dto.title, dto.count, dto.price, dto.content)
     }
+
+    override fun delete(dto: DeleteRamenTradeDto) =
+        ramenRepository.deleteById(dto.idx)
 
 }
