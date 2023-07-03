@@ -35,7 +35,6 @@ class RamenTradeController(
 
     @DeleteMapping("/{idx}")
     fun deleteRamenTrade(@PathVariable idx: Long): ResponseEntity<Void> =
-        ramenTradeConverter.toDto(idx)
-            .let { ramenTradeService.delete(it) }
-            .let { ResponseEntity.ok().build() }
+       ramenTradeService.delete(idx)
+            .let { ResponseEntity.status(HttpStatus.RESET_CONTENT).build() }
 }
