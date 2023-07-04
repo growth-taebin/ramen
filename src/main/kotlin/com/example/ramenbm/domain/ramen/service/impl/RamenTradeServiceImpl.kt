@@ -30,4 +30,7 @@ class RamenTradeServiceImpl(
         ramenTrade.updateRamenTrade(dto.title, dto.count, dto.price, dto.content)
     }
 
+    override fun delete(idx: Long) =
+        ramenRepository.deleteById(idx)
+
 }

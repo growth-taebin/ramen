@@ -37,6 +37,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.PATCH, "/auth/reissue").permitAll()
             .antMatchers(HttpMethod.POST, "/api/ramen").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
             .antMatchers(HttpMethod.PATCH, "/api/ramen/{idx}").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
+            .antMatchers(HttpMethod.DELETE, "/api/ramen/{idx}").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
 
             .anyRequest().permitAll()
             .and()

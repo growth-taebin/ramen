@@ -6,6 +6,7 @@ import com.example.ramenbm.domain.ramen.service.RamenTradeService
 import com.example.ramenbm.domain.ramen.util.RamenTradeConverter
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -32,4 +33,8 @@ class RamenTradeController(
             .let { ramenTradeService.update(it) }
             .let { ResponseEntity.ok().build() }
 
+    @DeleteMapping("/{idx}")
+    fun deleteRamenTrade(@PathVariable idx: Long): ResponseEntity<Void> =
+       ramenTradeService.delete(idx)
+            .let { ResponseEntity.status(HttpStatus.RESET_CONTENT).build() }
 }

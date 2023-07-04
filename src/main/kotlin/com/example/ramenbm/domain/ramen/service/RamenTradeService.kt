@@ -9,4 +9,5 @@ interface RamenTradeService {
 
     fun update(dto: UpdateRamenTradeDto)
 
+    fun delete(idx: Long)
 }
