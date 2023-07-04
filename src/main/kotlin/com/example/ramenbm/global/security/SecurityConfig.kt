@@ -32,12 +32,13 @@ class SecurityConfig(
             .and()
 
             .authorizeRequests()
-            .antMatchers(HttpMethod.POST, "/auth/signup").permitAll()
-            .antMatchers(HttpMethod.POST, "/auth/signin").permitAll()
-            .antMatchers(HttpMethod.PATCH, "/auth/reissue").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/auth/signup").permitAll()
+            .antMatchers(HttpMethod.POST, "/api/auth/signin").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/api/auth/reissue").permitAll()
             .antMatchers(HttpMethod.POST, "/api/ramen").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
             .antMatchers(HttpMethod.PATCH, "/api/ramen/{idx}").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
             .antMatchers(HttpMethod.DELETE, "/api/ramen/{idx}").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
+            .antMatchers(HttpMethod.GET, "/api/ramen").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
 
             .anyRequest().permitAll()
             .and()
