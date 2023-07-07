@@ -4,14 +4,14 @@ import com.example.ramenbm.domain.ramen.presentation.data.dto.*
 
 interface RamenTradeService {
 
-    fun write(dto: WriteRamenTradeDto): Long
+	fun write(dto: WriteRamenTradeDto): Long
 
-    fun update(dto: UpdateRamenTradeDto)
+	fun update(dto: UpdateRamenTradeDto)
 
-    fun delete(idx: Long)
+	fun delete(idx: Long)
 
-    fun findAll(): RamenTradeListQueryDto
+	fun findAll(): RamenTradeListQueryDto
 
-    fun findRamenTradeById(idx: Long): RamenTradeDetailQueryDto
+	fun findRamenTradeById(idx: Long): RamenTradeDetailQueryDto
 
 }
