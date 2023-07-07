@@ -1,8 +1,6 @@
 package com.example.ramenbm.domain.ramen.service
 
-import com.example.ramenbm.domain.ramen.presentation.data.dto.RamenTradeListQueryDto
-import com.example.ramenbm.domain.ramen.presentation.data.dto.UpdateRamenTradeDto
-import com.example.ramenbm.domain.ramen.presentation.data.dto.WriteRamenTradeDto
+import com.example.ramenbm.domain.ramen.presentation.data.dto.*
 
 interface RamenTradeService {
 
@@ -13,5 +11,7 @@ interface RamenTradeService {
     fun delete(idx: Long)
 
     fun findAll(): RamenTradeListQueryDto
+
+    fun findRamenTradeById(ramenTradeDto: RamenTradeDto): RamenTradeDetailQueryDto
 
 }
