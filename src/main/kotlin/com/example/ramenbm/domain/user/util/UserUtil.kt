@@ -4,6 +4,6 @@ import com.example.ramenbm.domain.user.entity.User
 
 interface UserUtil {
 
-    fun currentUser(): User
+	fun currentUser(): User
 
 }

@@ -15,29 +15,29 @@ import javax.servlet.http.HttpServletResponse
 @Component
 class ExceptionHandlerFilter : OncePerRequestFilter() {
 
-    override fun doFilterInternal(
-        request: HttpServletRequest,
-        response: HttpServletResponse,
-        filterChain: FilterChain
-    ) {
-        runCatching {
-            filterChain.doFilter(request, response)
-        }.onFailure { exception ->
-            when (exception) {
-                is ExpiredJwtException -> setErrorResponse(ErrorCode.ACCESS_TOKEN_EXPIRED, response)
-                is JwtException -> setErrorResponse(ErrorCode.INVALID_TOKEN, response)
-                is RamenException -> setErrorResponse(exception.errorCode, response)
-            }
-        }
-    }
+	override fun doFilterInternal(
+		request: HttpServletRequest,
+		response: HttpServletResponse,
+		filterChain: FilterChain
+	) {
+		runCatching {
+			filterChain.doFilter(request, response)
+		}.onFailure { exception ->
+			when (exception) {
+				is ExpiredJwtException -> setErrorResponse(ErrorCode.ACCESS_TOKEN_EXPIRED, response)
+				is JwtException -> setErrorResponse(ErrorCode.INVALID_TOKEN, response)
+				is RamenException -> setErrorResponse(exception.errorCode, response)
+			}
+		}
+	}
 
-    private fun setErrorResponse(errorCode: ErrorCode, response: HttpServletResponse) {
-        response.status = errorCode.status
-        response.contentType = "application/json"
-        response.characterEncoding = "utf-8"
-        val errorResponseEntityToJson =
-            ObjectMapper().writeValueAsString(ErrorResponse(errorCode.message, errorCode.status))
-        response.writer.write(errorResponseEntityToJson)
-    }
+	private fun setErrorResponse(errorCode: ErrorCode, response: HttpServletResponse) {
+		response.status = errorCode.status
+		response.contentType = "application/json"
+		response.characterEncoding = "utf-8"
+		val errorResponseEntityToJson =
+			ObjectMapper().writeValueAsString(ErrorResponse(errorCode.message, errorCode.status))
+		response.writer.write(errorResponseEntityToJson)
+	}
 
 }

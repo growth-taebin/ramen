@@ -14,45 +14,45 @@ import java.util.*
 
 @Component
 class TokenProvider(
-    private val jwtProperties: JwtProperties,
-    private val refreshTokenRepository: RefreshTokenRepository,
+	private val jwtProperties: JwtProperties,
+	private val refreshTokenRepository: RefreshTokenRepository,
 ) {
 
-    companion object {
-        const val ACCESS_TYPE = "access"
-        const val REFRESH_TYPE = "refresh"
-        const val ACCESS_EXP = 1800L //3 hour
-        const val REFRESH_EXP = 604800L //1 week
-        const val TOKEN_PREFIX = "Bearer "
-    }
+	companion object {
+		const val ACCESS_TYPE = "access"
+		const val REFRESH_TYPE = "refresh"
+		const val ACCESS_EXP = 1800L //3 hour
+		const val REFRESH_EXP = 604800L //1 week
+		const val TOKEN_PREFIX = "Bearer "
+	}
 
-    @Transactional(rollbackFor = [Exception::class])
-    fun generate(email: String): TokenResponse {
-        val accessToken = generateAccessToken(email)
-        val refreshToken = generateRefreshToken(email)
-        refreshTokenRepository.save(RefreshToken(email, refreshToken, REFRESH_EXP))
-        return TokenResponse(accessToken, refreshToken, getAccessTokenExpiredAt(), getRefreshTokenExpiredAt())
-    }
+	@Transactional(rollbackFor = [Exception::class])
+	fun generate(email: String): TokenResponse {
+		val accessToken = generateAccessToken(email)
+		val refreshToken = generateRefreshToken(email)
+		refreshTokenRepository.save(RefreshToken(email, refreshToken, REFRESH_EXP))
+		return TokenResponse(accessToken, refreshToken, getAccessTokenExpiredAt(), getRefreshTokenExpiredAt())
+	}
 
-    private fun getAccessTokenExpiredAt(): LocalDateTime =
-        LocalDateTime.now().plusSeconds(ACCESS_EXP + 1000)
+	private fun getAccessTokenExpiredAt(): LocalDateTime =
+		LocalDateTime.now().plusSeconds(ACCESS_EXP + 1000)
 
-    private fun getRefreshTokenExpiredAt(): LocalDateTime =
-        LocalDateTime.now().plusSeconds(REFRESH_EXP + 1000)
+	private fun getRefreshTokenExpiredAt(): LocalDateTime =
+		LocalDateTime.now().plusSeconds(REFRESH_EXP + 1000)
 
-    private fun generateAccessToken(email: String): String =
-        generateToken(email, ACCESS_TYPE, jwtProperties.accessSecret, ACCESS_EXP)
+	private fun generateAccessToken(email: String): String =
+		generateToken(email, ACCESS_TYPE, jwtProperties.accessSecret, ACCESS_EXP)
 
-    private fun generateRefreshToken(email: String): String =
-        generateToken(email, REFRESH_TYPE, jwtProperties.refreshSecret, REFRESH_EXP)
+	private fun generateRefreshToken(email: String): String =
+		generateToken(email, REFRESH_TYPE, jwtProperties.refreshSecret, REFRESH_EXP)
 
-    private fun generateToken(sub: String, type: String, secret: Key, exp: Long): String =
-        Jwts.builder()
-            .signWith(secret, SignatureAlgorithm.HS256)
-            .setSubject(sub)
-            .claim("type", type)
-            .setIssuedAt(Date())
-            .setExpiration(Date(System.currentTimeMillis() * exp * 1000))
-            .compact()
+	private fun generateToken(sub: String, type: String, secret: Key, exp: Long): String =
+		Jwts.builder()
+			.signWith(secret, SignatureAlgorithm.HS256)
+			.setSubject(sub)
+			.claim("type", type)
+			.setIssuedAt(Date())
+			.setExpiration(Date(System.currentTimeMillis() * exp * 1000))
+			.compact()
 
 }

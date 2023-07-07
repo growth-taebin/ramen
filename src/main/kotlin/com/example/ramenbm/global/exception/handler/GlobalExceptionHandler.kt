@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 @RestControllerAdvice
 class GlobalExceptionHandler {
 
-    @ExceptionHandler(RamenException::class)
-    fun globalExceptionHandler(e: RamenException): ResponseEntity<ErrorResponse> =
-        ResponseEntity(
-            ErrorResponse(e.errorCode.message, e.errorCode.status),
-            HttpStatus.valueOf(e.errorCode.status)
-        )
+	@ExceptionHandler(RamenException::class)
+	fun globalExceptionHandler(e: RamenException): ResponseEntity<ErrorResponse> =
+		ResponseEntity(
+			ErrorResponse(e.errorCode.message, e.errorCode.status),
+			HttpStatus.valueOf(e.errorCode.status)
+		)
 
 }

@@ -10,21 +10,21 @@ import javax.servlet.http.HttpServletResponse
 
 @Component
 class JwtRequestFilter(
-    private val tokenParser: TokenParser
+	private val tokenParser: TokenParser
 ) : OncePerRequestFilter() {
 
-    override fun doFilterInternal(
-        request: HttpServletRequest,
-        response: HttpServletResponse,
-        filterChain: FilterChain
-    ) {
-        val accessToken = tokenParser.parseAccessToken(request)
-        if (!accessToken.isNullOrBlank()) {
-            val authentication = tokenParser.authentication(accessToken)
-            val securityContext = SecurityContextHolder.getContext()
-            securityContext.authentication = authentication
-        }
-        filterChain.doFilter(request, response)
-    }
+	override fun doFilterInternal(
+		request: HttpServletRequest,
+		response: HttpServletResponse,
+		filterChain: FilterChain
+	) {
+		val accessToken = tokenParser.parseAccessToken(request)
+		if (!accessToken.isNullOrBlank()) {
+			val authentication = tokenParser.authentication(accessToken)
+			val securityContext = SecurityContextHolder.getContext()
+			securityContext.authentication = authentication
+		}
+		filterChain.doFilter(request, response)
+	}
 
 }

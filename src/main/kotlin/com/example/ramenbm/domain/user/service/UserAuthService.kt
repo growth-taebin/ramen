@@ -6,8 +6,8 @@ import com.example.ramenbm.domain.user.presentation.data.dto.response.TokenRespo
 
 interface UserAuthService {
 
-    fun signup(request: SignUpRequest): Long
-    fun signin(request: SignInRequest): TokenResponse
-    fun reissueToken(refreshToken: String): TokenResponse
+	fun signup(request: SignUpRequest): Long
+	fun signin(request: SignInRequest): TokenResponse
+	fun reissueToken(refreshToken: String): TokenResponse
 
 }

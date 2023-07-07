@@ -10,14 +10,14 @@ import org.springframework.transaction.annotation.Transactional
 
 @Component
 class UserUtilImpl(
-    private val userRepository: UserRepository
+	private val userRepository: UserRepository
 ) : UserUtil {
 
-    @Transactional(readOnly = true, rollbackFor = [Exception::class])
-    override fun currentUser(): User {
-        val email = SecurityContextHolder.getContext().authentication.name
-        return userRepository.findByEmail(email)
-            ?: throw UserNotFoundException()
-    }
+	@Transactional(readOnly = true, rollbackFor = [Exception::class])
+	override fun currentUser(): User {
+		val email = SecurityContextHolder.getContext().authentication.name
+		return userRepository.findByEmail(email)
+			?: throw UserNotFoundException()
+	}
 
 }
