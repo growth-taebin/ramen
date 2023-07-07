@@ -16,43 +16,44 @@ import org.springframework.security.web.SecurityFilterChain
 
 @Configuration
 class SecurityConfig(
-    private val tokenParser: TokenParser,
+        private val tokenParser: TokenParser,
 ) {
 
     @Bean
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain =
-        http
-            .cors()
-            .and()
-            .csrf().disable()
-            .httpBasic().disable()
+            http
+                    .cors()
+                    .and()
+                    .csrf().disable()
+                    .httpBasic().disable()
 
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
+                    .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .and()
 
-            .authorizeRequests()
-            .antMatchers(HttpMethod.POST, "/api/auth/signup").permitAll()
-            .antMatchers(HttpMethod.POST, "/api/auth/signin").permitAll()
-            .antMatchers(HttpMethod.PATCH, "/api/auth/reissue").permitAll()
-            .antMatchers(HttpMethod.POST, "/api/ramen").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
-            .antMatchers(HttpMethod.PATCH, "/api/ramen/{idx}").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
-            .antMatchers(HttpMethod.DELETE, "/api/ramen/{idx}").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
-            .antMatchers(HttpMethod.GET, "/api/ramen").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
+                    .authorizeRequests()
+                    .antMatchers(HttpMethod.POST, "/api/auth/signup").permitAll()
+                    .antMatchers(HttpMethod.POST, "/api/auth/signin").permitAll()
+                    .antMatchers(HttpMethod.PATCH, "/api/auth/reissue").permitAll()
+                    .antMatchers(HttpMethod.POST, "/api/ramen").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
+                    .antMatchers(HttpMethod.PATCH, "/api/ramen/{idx}").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
+                    .antMatchers(HttpMethod.DELETE, "/api/ramen/{idx}").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
+                    .antMatchers(HttpMethod.GET, "/api/ramen").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
+                    .antMatchers(HttpMethod.GET, "/api/ramen/{idx}").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
 
-            .anyRequest().permitAll()
-            .and()
+                    .anyRequest().permitAll()
+                    .and()
 
-            .exceptionHandling()
-            .accessDeniedHandler(CustomAccessDeniedHandler())
-            .and()
-            .httpBasic()
-            .authenticationEntryPoint(CustomAuthenticationEntryPoint())
-            .and()
+                    .exceptionHandling()
+                    .accessDeniedHandler(CustomAccessDeniedHandler())
+                    .and()
+                    .httpBasic()
+                    .authenticationEntryPoint(CustomAuthenticationEntryPoint())
+                    .and()
 
-            .apply(FilterConfig(tokenParser))
-            .and()
-            .build()
+                    .apply(FilterConfig(tokenParser))
+                    .and()
+                    .build()
 
     @Bean
     protected fun passwordEncoder(): PasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
