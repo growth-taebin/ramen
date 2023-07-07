@@ -10,20 +10,18 @@ import com.example.ramenbm.domain.user.entity.User
 
 interface RamenTradeConverter {
 
-    fun toDto(request: WriteRamenTradeRequest): WriteRamenTradeDto
+	fun toDto(request: WriteRamenTradeRequest): WriteRamenTradeDto
 
-    fun toDto(idx: Long, request: UpdateRamenTradeRequest): UpdateRamenTradeDto
+	fun toDto(idx: Long, request: UpdateRamenTradeRequest): UpdateRamenTradeDto
 
-    fun toDto(idx: Long): RamenTradeDto
+	fun toEntity(dto: WriteRamenTradeDto, user: User): RamenTrade
 
-    fun toEntity(dto: WriteRamenTradeDto, user: User): RamenTrade
+	fun toQueryDto(ramenTrade: RamenTrade): RamenTradeDetailQueryDto
 
-    fun toQueryDto(ramenTrade: RamenTrade): RamenTradeDetailQueryDto
+	fun toListQueryDto(ramenTrade: RamenTrade): RamenTradeQueryDto
 
-    fun toListQueryDto(ramenTrade: RamenTrade): RamenTradeQueryDto
+	fun toResponse(ramenTradeDetailQueryDto: RamenTradeDetailQueryDto): RamenTradeResponse
 
-    fun toResponse(ramenTradeDetailQueryDto: RamenTradeDetailQueryDto): RamenTradeResponse
-
-    fun toListResponse(dto: RamenTradeListQueryDto): RamenTradeListResponse
+	fun toListResponse(dto: RamenTradeListQueryDto): RamenTradeListResponse
 
 }

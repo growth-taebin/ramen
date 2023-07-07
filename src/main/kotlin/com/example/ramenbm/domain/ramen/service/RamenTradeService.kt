@@ -12,6 +12,6 @@ interface RamenTradeService {
 
     fun findAll(): RamenTradeListQueryDto
 
-    fun findRamenTradeById(ramenTradeDto: RamenTradeDto): RamenTradeDetailQueryDto
+    fun findRamenTradeById(idx: Long): RamenTradeDetailQueryDto
 
 }
