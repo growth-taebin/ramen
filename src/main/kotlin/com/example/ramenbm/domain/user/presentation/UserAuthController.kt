@@ -16,22 +16,22 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/auth")
 class UserAuthController(
-    private val userAuthService: UserAuthService
+	private val userAuthService: UserAuthService
 ) {
 
-    @PostMapping("/signup")
-    fun signup(@RequestBody request: SignUpRequest): ResponseEntity<Void> =
-        userAuthService.signup(request)
-            .let { ResponseEntity.status(HttpStatus.CREATED).build() }
+	@PostMapping("/signup")
+	fun signup(@RequestBody request: SignUpRequest): ResponseEntity<Void> =
+		userAuthService.signup(request)
+			.let { ResponseEntity.status(HttpStatus.CREATED).build() }
 
-    @PostMapping("/signin")
-    fun signIn(@RequestBody request: SignInRequest): ResponseEntity<TokenResponse> =
-        userAuthService.signin(request)
-            .let { ResponseEntity.ok(it) }
+	@PostMapping("/signin")
+	fun signIn(@RequestBody request: SignInRequest): ResponseEntity<TokenResponse> =
+		userAuthService.signin(request)
+			.let { ResponseEntity.ok(it) }
 
-    @PatchMapping("/reissue")
-    fun reissue(@RequestHeader refreshToken: String): ResponseEntity<TokenResponse> =
-        userAuthService.reissueToken(refreshToken)
-            .let { ResponseEntity.ok(it) }
+	@PatchMapping("/reissue")
+	fun reissue(@RequestHeader refreshToken: String): ResponseEntity<TokenResponse> =
+		userAuthService.reissueToken(refreshToken)
+			.let { ResponseEntity.ok(it) }
 
 }

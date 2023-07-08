@@ -17,42 +17,42 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UserAuthServiceImpl(
-    private val userRepository: UserRepository,
-    private val refreshTokenRepository: RefreshTokenRepository,
-    private val passwordEncoder: PasswordEncoder,
-    private val tokenProvider: TokenProvider,
-    private val tokenParser: TokenParser
-): UserAuthService {
+	private val userRepository: UserRepository,
+	private val refreshTokenRepository: RefreshTokenRepository,
+	private val passwordEncoder: PasswordEncoder,
+	private val tokenProvider: TokenProvider,
+	private val tokenParser: TokenParser
+) : UserAuthService {
 
-    @Transactional(rollbackFor = [Exception::class])
-    override fun signup(request: SignUpRequest): Long {
-        if (userRepository.existsByEmail(request.email)) {
-            throw DuplicateEmailException()
-        }
-        return userRepository.save(request.toEntity(passwordEncoder.encode(request.password))).idx
-    }
+	@Transactional(rollbackFor = [Exception::class])
+	override fun signup(request: SignUpRequest): Long {
+		if (userRepository.existsByEmail(request.email)) {
+			throw DuplicateEmailException()
+		}
+		return userRepository.save(request.toEntity(passwordEncoder.encode(request.password))).idx
+	}
 
-    @Transactional(rollbackFor = [Exception::class])
-    override fun signin(request: SignInRequest): TokenResponse {
-        val user = userRepository.findByEmail(request.email) ?: throw UserNotFoundException()
-        if (!passwordEncoder.matches(request.password, user.password)) {
-            throw PasswordNotCorrectException()
-        }
-        return tokenProvider.generate(request.email)
-    }
+	@Transactional(rollbackFor = [Exception::class])
+	override fun signin(request: SignInRequest): TokenResponse {
+		val user = userRepository.findByEmail(request.email) ?: throw UserNotFoundException()
+		if (!passwordEncoder.matches(request.password, user.password)) {
+			throw PasswordNotCorrectException()
+		}
+		return tokenProvider.generate(request.email)
+	}
 
-    @Transactional(rollbackFor = [Exception::class])
-    override fun reissueToken(refreshToken: String): TokenResponse {
-        val parsedRefreshToken = tokenParser.parseRefreshToken(refreshToken) ?: throw InvalidTokenException()
-        val refreshTokenEntity =
-            refreshTokenRepository.findByIdOrNull(parsedRefreshToken) ?: throw ExpiredRefreshTokenException()
-        val user = userRepository.findByEmail(refreshTokenEntity.email) ?: throw UserNotFoundException()
+	@Transactional(rollbackFor = [Exception::class])
+	override fun reissueToken(refreshToken: String): TokenResponse {
+		val parsedRefreshToken = tokenParser.parseRefreshToken(refreshToken) ?: throw InvalidTokenException()
+		val refreshTokenEntity =
+			refreshTokenRepository.findByIdOrNull(parsedRefreshToken) ?: throw ExpiredRefreshTokenException()
+		val user = userRepository.findByEmail(refreshTokenEntity.email) ?: throw UserNotFoundException()
 
-        if (refreshTokenRepository.existsById(parsedRefreshToken)) {
-            refreshTokenRepository.deleteById(parsedRefreshToken)
-        }
+		if (refreshTokenRepository.existsById(parsedRefreshToken)) {
+			refreshTokenRepository.deleteById(parsedRefreshToken)
+		}
 
-        return tokenProvider.generate(user.email)
-    }
+		return tokenProvider.generate(user.email)
+	}
 
 }

@@ -6,10 +6,10 @@ import javax.persistence.*
 
 @Entity
 class User(
-    val email: String,
-    val password: String,
-    val name: String,
-    val discord: String,
-    @Enumerated(EnumType.STRING)
-    val authority: Authority
+	val email: String,
+	val password: String,
+	val name: String,
+	val discord: String,
+	@Enumerated(EnumType.STRING)
+	val authority: Authority
 ) : BaseIdxEntity()
