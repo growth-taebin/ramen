@@ -1,4 +1,4 @@
-package com.example.ramenbm.domain.user.presentation.data.dto.request
+package com.example.ramenbm.domain.user.presentation.data.request
 
 import com.example.ramenbm.domain.user.entity.User
 import com.example.ramenbm.domain.user.type.Authority

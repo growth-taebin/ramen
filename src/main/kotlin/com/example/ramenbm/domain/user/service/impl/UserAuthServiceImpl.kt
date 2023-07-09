@@ -1,10 +1,10 @@
 package com.example.ramenbm.domain.user.service.impl
 
 import com.example.ramenbm.domain.user.exception.*
-import com.example.ramenbm.domain.user.presentation.data.dto.request.SignInRequest
-import com.example.ramenbm.domain.user.presentation.data.dto.request.SignUpRequest
-import com.example.ramenbm.domain.user.presentation.data.dto.request.toEntity
-import com.example.ramenbm.domain.user.presentation.data.dto.response.TokenResponse
+import com.example.ramenbm.domain.user.presentation.data.request.SignInRequest
+import com.example.ramenbm.domain.user.presentation.data.request.SignUpRequest
+import com.example.ramenbm.domain.user.presentation.data.request.toEntity
+import com.example.ramenbm.domain.user.presentation.data.response.TokenResponse
 import com.example.ramenbm.domain.user.repository.RefreshTokenRepository
 import com.example.ramenbm.domain.user.repository.UserRepository
 import com.example.ramenbm.domain.user.service.UserAuthService

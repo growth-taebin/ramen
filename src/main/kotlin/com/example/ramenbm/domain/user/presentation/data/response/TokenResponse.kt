@@ -1,4 +1,4 @@
-package com.example.ramenbm.domain.user.presentation.data.dto.response
+package com.example.ramenbm.domain.user.presentation.data.response
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import java.time.LocalDateTime
