@@ -20,4 +20,9 @@ class UserUtilImpl(
 			?: throw UserNotFoundException()
 	}
 
+	@Transactional(readOnly = true, rollbackFor = [Exception::class])
+	override fun findUserByIdx(idx: Long): User =
+		userRepository.findById(idx).orElseThrow() { throw UserNotFoundException() }
+
+
 }
