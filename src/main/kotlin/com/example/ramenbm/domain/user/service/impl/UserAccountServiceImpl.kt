@@ -18,5 +18,4 @@ class UserAccountServiceImpl(
 		userUtil.findUserByIdx(idx)
 			.let { accountConverter.toQueryDto(it) }
 
-
 }
