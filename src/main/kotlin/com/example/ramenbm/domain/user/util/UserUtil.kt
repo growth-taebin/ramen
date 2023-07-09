@@ -6,4 +6,6 @@ interface UserUtil {
 
 	fun currentUser(): User
 
+	fun findUserByIdx(idx: Long): User
+
 }

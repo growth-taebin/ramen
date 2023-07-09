@@ -1,7 +1,7 @@
 package com.example.ramenbm.global.security.jwt
 
 import com.example.ramenbm.domain.user.entity.RefreshToken
-import com.example.ramenbm.domain.user.presentation.data.dto.response.TokenResponse
+import com.example.ramenbm.domain.user.presentation.data.response.TokenResponse
 import com.example.ramenbm.domain.user.repository.RefreshTokenRepository
 import com.example.ramenbm.global.security.jwt.properties.JwtProperties
 import io.jsonwebtoken.Jwts

@@ -1,8 +1,8 @@
 package com.example.ramenbm.domain.user.service
 
-import com.example.ramenbm.domain.user.presentation.data.dto.request.SignInRequest
-import com.example.ramenbm.domain.user.presentation.data.dto.request.SignUpRequest
-import com.example.ramenbm.domain.user.presentation.data.dto.response.TokenResponse
+import com.example.ramenbm.domain.user.presentation.data.request.SignInRequest
+import com.example.ramenbm.domain.user.presentation.data.request.SignUpRequest
+import com.example.ramenbm.domain.user.presentation.data.response.TokenResponse
 
 interface UserAuthService {
 
