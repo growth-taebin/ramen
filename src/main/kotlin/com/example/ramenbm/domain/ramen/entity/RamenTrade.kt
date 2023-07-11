@@ -4,6 +4,7 @@ import com.example.ramenbm.domain.user.entity.User
 import com.example.ramenbm.global.entity.BaseIdxEntity
 import javax.persistence.Entity
 import javax.persistence.FetchType
+import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 
 @Entity
@@ -13,6 +14,7 @@ class RamenTrade(
 	var price: Int,
 	var content: String,
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
 	val user: User
 ) : BaseIdxEntity() {
 
