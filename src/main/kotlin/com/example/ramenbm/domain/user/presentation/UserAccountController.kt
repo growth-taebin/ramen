@@ -1,6 +1,5 @@
 package com.example.ramenbm.domain.user.presentation
 
-import com.example.ramenbm.domain.ramen.entity.RamenTrade
 import com.example.ramenbm.domain.ramen.presentation.data.response.RamenTradeListResponse
 import com.example.ramenbm.domain.ramen.util.RamenTradeConverter
 import com.example.ramenbm.domain.user.presentation.data.response.UserInfoResponse

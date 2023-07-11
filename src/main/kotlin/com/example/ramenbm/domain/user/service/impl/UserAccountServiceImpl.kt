@@ -4,7 +4,6 @@ import com.example.ramenbm.domain.ramen.presentation.data.dto.RamenTradeListQuer
 import com.example.ramenbm.domain.ramen.repository.RamenTradeRepository
 import com.example.ramenbm.domain.ramen.util.RamenTradeConverter
 import com.example.ramenbm.domain.user.presentation.data.dto.UserQueryDto
-import com.example.ramenbm.domain.user.repository.UserRepository
 import com.example.ramenbm.domain.user.service.UserAccountService
 import com.example.ramenbm.domain.user.util.AccountConverter
 import com.example.ramenbm.domain.user.util.UserUtil
