@@ -14,7 +14,7 @@ class RamenTrade(
 	var price: Int,
 	var content: String,
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_idx")
 	val user: User
 ) : BaseIdxEntity() {
 
