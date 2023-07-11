@@ -1,10 +1,13 @@
 package com.example.ramenbm.domain.ramen.repository
 
 import com.example.ramenbm.domain.ramen.entity.RamenTrade
-import org.springframework.data.repository.CrudRepository
+import com.example.ramenbm.domain.user.entity.User
+import org.springframework.data.jpa.repository.JpaRepository
 
-interface RamenTradeRepository : CrudRepository<RamenTrade, Long> {
+interface RamenTradeRepository : JpaRepository<RamenTrade, Long> {
 
 	fun findRamenTradeByIdx(idx: Long): RamenTrade?
+
+	fun findRamenTradeByUser(user: User): RamenTrade
 
 }
