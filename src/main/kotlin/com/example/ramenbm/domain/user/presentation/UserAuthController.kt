@@ -4,6 +4,7 @@ import com.example.ramenbm.domain.user.presentation.data.request.SignInRequest
 import com.example.ramenbm.domain.user.presentation.data.request.SignUpRequest
 import com.example.ramenbm.domain.user.presentation.data.response.TokenResponse
 import com.example.ramenbm.domain.user.service.UserAuthService
+import com.example.ramenbm.domain.user.util.AccountConverter
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PatchMapping
@@ -16,12 +17,14 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/auth")
 class UserAuthController(
-	private val userAuthService: UserAuthService
+	private val userAuthService: UserAuthService,
+	private val accountConverter: AccountConverter
 ) {
 
 	@PostMapping("/signup")
 	fun signup(@RequestBody request: SignUpRequest): ResponseEntity<Void> =
-		userAuthService.signup(request)
+		accountConverter.toDto(request)
+			.let { userAuthService.signup(it) }
 			.let { ResponseEntity.status(HttpStatus.CREATED).build() }
 
 	@PostMapping("/signin")
