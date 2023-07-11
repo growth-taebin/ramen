@@ -8,6 +8,6 @@ interface RamenTradeRepository : JpaRepository<RamenTrade, Long> {
 
 	fun findRamenTradeByIdx(idx: Long): RamenTrade?
 
-	fun findRamenTradeByUser(user: User): RamenTrade
+	fun findAllByUser(user: User): List<RamenTrade>
 
 }
