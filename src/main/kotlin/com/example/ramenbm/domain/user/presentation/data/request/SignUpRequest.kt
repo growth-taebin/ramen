@@ -10,13 +10,4 @@ data class SignUpRequest(
 	val discord: String,
 )
 
-fun SignUpRequest.toEntity(encodePassword: String) =
-	User(
-		email = email,
-		password = encodePassword,
-		name = name,
-		discord = discord,
-		authority = Authority.ROLE_USER
-	)
-
 
