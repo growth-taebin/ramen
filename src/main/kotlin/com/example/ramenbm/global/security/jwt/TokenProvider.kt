@@ -30,7 +30,7 @@ class TokenProvider(
 	fun generate(email: String): TokenResponse {
 		val accessToken = generateAccessToken(email)
 		val refreshToken = generateRefreshToken(email)
-		refreshTokenRepository.save(RefreshToken(email, refreshToken, REFRESH_EXP))
+		refreshTokenRepository.save(RefreshToken(refreshToken, email, REFRESH_EXP))
 		return TokenResponse(accessToken, refreshToken, getAccessTokenExpiredAt(), getRefreshTokenExpiredAt())
 	}
 
