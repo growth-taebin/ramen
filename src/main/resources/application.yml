@@ -13,10 +13,6 @@ spring:
       hibernate:
         format_sql: true
 
-  redis:
-    host: ${REDIS_HOST:localhost}
-    port: ${REDIS_PORT:6379}
-
 jwt:
   accessKey: ${JWT_ACCESS_KEY}
   refreshKey: ${JWT_REFRESH_KEY}
