@@ -41,6 +41,7 @@ class SecurityConfig(
 			.antMatchers(HttpMethod.GET, "/api/ramen").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
 			.antMatchers(HttpMethod.GET, "/api/ramen/{idx}").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
 			.antMatchers(HttpMethod.GET, "/api/user/{idx}").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
+			.antMatchers(HttpMethod.GET, "/api/user/my/ramen").hasAnyAuthority(Authority.ROLE_USER.name, Authority.ROLE_ADMIN.name)
 
 			.anyRequest().permitAll()
 			.and()
