@@ -1,13 +1,13 @@
 package com.example.ramenbm.domain.user.service.impl
 
 import com.example.ramenbm.domain.user.exception.*
+import com.example.ramenbm.domain.user.presentation.data.dto.UserDto
 import com.example.ramenbm.domain.user.presentation.data.request.SignInRequest
-import com.example.ramenbm.domain.user.presentation.data.request.SignUpRequest
-import com.example.ramenbm.domain.user.presentation.data.request.toEntity
 import com.example.ramenbm.domain.user.presentation.data.response.TokenResponse
 import com.example.ramenbm.domain.user.repository.RefreshTokenRepository
 import com.example.ramenbm.domain.user.repository.UserRepository
 import com.example.ramenbm.domain.user.service.UserAuthService
+import com.example.ramenbm.domain.user.util.AccountConverter
 import com.example.ramenbm.global.security.jwt.TokenParser
 import com.example.ramenbm.global.security.jwt.TokenProvider
 import org.springframework.data.repository.findByIdOrNull
@@ -21,15 +21,17 @@ class UserAuthServiceImpl(
 	private val refreshTokenRepository: RefreshTokenRepository,
 	private val passwordEncoder: PasswordEncoder,
 	private val tokenProvider: TokenProvider,
-	private val tokenParser: TokenParser
+	private val tokenParser: TokenParser,
+	private val accountConverter: AccountConverter
 ) : UserAuthService {
 
 	@Transactional(rollbackFor = [Exception::class])
-	override fun signup(request: SignUpRequest): Long {
-		if (userRepository.existsByEmail(request.email)) {
+	override fun signup(dto: UserDto): Long {
+		if (userRepository.existsByEmail(dto.email)) {
 			throw DuplicateEmailException()
 		}
-		return userRepository.save(request.toEntity(passwordEncoder.encode(request.password))).idx
+		accountConverter.toEntity(dto, passwordEncoder.encode(dto.password))
+			.let { return userRepository.save(it).idx }
 	}
 
 	@Transactional(rollbackFor = [Exception::class])
