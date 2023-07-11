@@ -1,5 +1,6 @@
 package com.example.ramenbm.domain.user.presentation
 
+import com.example.ramenbm.domain.ramen.entity.RamenTrade
 import com.example.ramenbm.domain.ramen.presentation.data.response.RamenTradeListResponse
 import com.example.ramenbm.domain.ramen.util.RamenTradeConverter
 import com.example.ramenbm.domain.user.presentation.data.response.UserInfoResponse
@@ -31,11 +32,4 @@ class UserAccountController(
 			.let { ramenTradeConverter.toListResponse(it) }
 			.let { ResponseEntity.ok(it) }
 
-//	@GetMapping("/my/ramen")
-//	fun findMyRamenTradeByUser(): ResponseEntity<RamenTradeListResponse> {
-//		val b = userAccountService.findMyRamenTradeByUser()
-//		val a = ramenTradeConverter.toListResponse(b)
-//		println("askjbfaljdbfalsjdfboadsbosdifblasidfbalsdbfasudfbaldsbflsdifbl")
-//		return ResponseEntity.ok(a)
-//	}
 }
